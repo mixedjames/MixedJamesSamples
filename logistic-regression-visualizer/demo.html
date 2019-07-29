@@ -1,0 +1,81 @@
+<!--
+
+  This work is licensed under the Creative Commons
+  Attribution-NonCommercial-ShareAlike 4.0 International License. To view a
+  copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/
+  or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042,
+  USA.
+ 
+  Copyright 2019 James Heggie
+
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Logistic Regression Visualizer</title>
+
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
+    rel="stylesheet">
+  <link href="css/styles.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+
+  <main>
+
+  <h1>Logistic Regression Visualizer</h1>
+
+  <p>
+  I found logistic regression tought to understand and most of the explanations
+  started with descriptions of why the logistic function combined with linear
+  regression gave a probability function. None of this seemed very intuitive
+  to me so I made this simulator to help.
+  </p>
+
+  <h2>Some key ideas</h2>
+
+  <dl>
+    <dt>Logistic regression is a binary classifier</dt>
+    <dd>That means it tries to decide if something is true or false based
+    on it's inputs. That's all it is</dd>
+
+    <dt>It does that by finding a line (or a plane) that separates the trues
+    from the falses.</dt>
+    <dd></dd>
+  </dl>
+
+  <h2>The model</h2>
+
+  <div id="theContainer"></div>
+
+  <div id="theControls">
+    <h2>The coefficients for the model</h2>
+
+    <label>
+      &beta;<sub>0</sub> = 
+      <span id="coefficient0-display">0</span>
+      <input type="range" min="-100" max="100" step="1" id="coefficient0">
+    </label>
+    <label>
+      &beta;<sub>1</sub> = 
+      <span id="coefficient1-display">0</span>
+      <input type="range" min="-100" max="100" step="1" id="coefficient1">
+    </label>
+    <label>
+      &beta;<sub>2</sub> = 
+      <span id="coefficient2-display">0</span>
+      <input type="range" min="-100" max="100" step="1" id="coefficient2">
+    </label>
+  </div>
+
+  </main>
+
+  <footer>
+    <p>Copyright &copy; 2019 James Heggie</p>
+  </footer>
+
+  <script src="lib/pixi.min.js"></script>
+  <script type="module" src="js/main.js"></script>
+
+</body>
+</html>

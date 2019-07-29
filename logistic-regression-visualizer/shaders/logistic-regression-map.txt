@@ -1,0 +1,31 @@
+/**
+ * This work is licensed under the Creative Commons
+ * Attribution-NonCommercial-ShareAlike 4.0 International License. To view a
+ * copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/
+ * or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042,
+ * USA.
+ *
+ * Copyright 2019 James Heggie
+ */
+
+uniform vec3 coefficients;
+uniform vec2 adjust;
+
+varying vec2 vTextureCoord;
+
+const vec4 positiveColor = vec4(0.0, 1.0, 0.0, 1.0);
+const vec4 negativeColor = vec4(0.0, 0.0, 1.0, 1.0);
+
+void main() {
+  float t = coefficients.x
+    + coefficients.y * vTextureCoord.x * adjust.x
+    + coefficients.z * (1.0 - vTextureCoord.y * adjust.x);
+
+  float p = 1.0 / (1.0+exp(-t));
+
+  gl_FragColor = mix(
+    negativeColor,
+    positiveColor,
+    p
+  );
+}

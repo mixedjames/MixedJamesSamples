@@ -1,0 +1,57 @@
+/**
+ * This work is licensed under the Creative Commons
+ * Attribution-NonCommercial-ShareAlike 4.0 International License. To view a
+ * copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/
+ * or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042,
+ * USA.
+ *
+ * Copyright 2019 James Heggie
+ */
+
+  body {
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  main {
+    max-width: 900px;
+    margin: auto;
+  }
+
+  footer {
+    max-width: 900px;
+    margin: auto;
+    clear: both;
+    text-align: center;
+  }
+
+  h1 {
+    text-align: center;
+  }
+
+  #theContainer {
+    float: left;
+    width: 500px;
+    height: 500px;
+    margin-right: 20px;
+  }
+
+  #theContainer canvas {
+    width: 500px;
+    height: 500px;
+  }
+
+  #theControls {
+  }
+
+  #theControls label {
+    display: block;
+  }
+
+  #theControls input[type=range] {
+    width: 250px;
+  }
+
+  #theControls label span {
+    display: inline-block;
+    width: 50px;
+  }
