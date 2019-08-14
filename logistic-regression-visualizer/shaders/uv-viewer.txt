@@ -17,16 +17,10 @@ const vec4 positiveColor = vec4(0.0, 1.0, 0.0, 1.0);
 const vec4 negativeColor = vec4(0.0, 0.0, 1.0, 1.0);
 
 void main() {
-  float t =
-      coefficients.x
-    + coefficients.y * vTextureCoord.x * adjust.x
-    + coefficients.z * (1.0 - vTextureCoord.y * adjust.y);
-
-  float p = 1.0 / (1.0+exp(-t));
-
-  gl_FragColor = mix(
-    negativeColor,
-    positiveColor,
-    p
-  );
+  if ((1.0-vTextureCoord.y*adjust.y) < 0.5) {
+    gl_FragColor = positiveColor;
+  }
+  else {
+    gl_FragColor = negativeColor;
+  }
 }
