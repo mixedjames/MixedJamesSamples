@@ -10,17 +10,17 @@
 
 import * as mjg from '../lib/mjGraph/mjGraph.js';
 import {LRFieldLayer} from './lr-field-layer.js';
-import {LineSegmentLayer} from './line-segment-layer.js';
-import {ScatterPlotLayer} from './scatter-plot-layer.js';
 import * as LogisticRegression from './logistic-regression.js';
 import LoadTextFile from './utils/load-text-file.js';
 
 const lrField = new LRFieldLayer();
-const line = new LineSegmentLayer();
+const line = new mjg.LineSegmentLayer();
 
 const plot = new mjg.Plot({
   canvas: 'theCanvas',
-  layers: [lrField, line]
+  layers: [lrField, line],
+  xMin: 0, xMax: 2,
+  yMin: 0, yMax: 2
 });
 
 HandleSlider('coefficient0', 'coefficient0-display', (v) => { setCoefficient(0, v); });
@@ -28,6 +28,7 @@ HandleSlider('coefficient1', 'coefficient1-display', (v) => { setCoefficient(1, 
 HandleSlider('coefficient2', 'coefficient2-display', (v) => { setCoefficient(2, v); });
 
 LoadTextFile('sample-data/sample-data.txt').then((jsonText) => {
+//LoadTextFile('sample-data/line.txt').then((jsonText) => {
 
   const data = JSON.parse(jsonText);
 
@@ -52,7 +53,9 @@ LoadTextFile('sample-data/sample-data.txt').then((jsonText) => {
 
   lrModel.forEach((c,i) => { setCoefficient(i, c); });
 
-  plot.addLayer(new ScatterPlotLayer({
+  console.log(lrModel);
+
+  plot.addLayer(new mjg.ScatterPlotLayer({
     series: [
       { name: 'Survivors', x: survivors.x, y: survivors.y },
       { name: 'Non-survivors', x: nonSurvivors.x, y: nonSurvivors.y }

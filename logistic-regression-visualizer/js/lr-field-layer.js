@@ -14,6 +14,8 @@ import {NextPowerOf2} from './utils/geom-utils.js';
 
 export class LRFieldLayer extends mjg.PlotLayer {
 
+  #pImpl = null;
+
   #filter = null;
   #initialised = false;
 
@@ -26,7 +28,9 @@ export class LRFieldLayer extends mjg.PlotLayer {
 
       this.#filter = new PIXI.Filter('', shaderSrc, {
         coefficients: [-10,10,10,0],
-        adjust: [1,1]
+        adjust: [1,1],
+        scale: [1,1],
+        offset: [0,0]
       });
       //this.#filter.resolution = window.devicePixelRatio;
 
@@ -38,8 +42,14 @@ export class LRFieldLayer extends mjg.PlotLayer {
     });
   }
 
+  attachToPlot(pImpl, x, y, w, h) {
+    this.#pImpl = pImpl;
+    super.attachToPlot(pImpl, x, y, w, h);
+  }
+
   render(g, bounds) {
     const [x,y,w,h] = bounds;
+    const {xMax, xMin, yMax, yMin} = this.#pImpl;
 
     if (!this.#initialised && this.#filter !== null) {
       g.filters = [this.#filter];
@@ -52,8 +62,11 @@ export class LRFieldLayer extends mjg.PlotLayer {
 
     this.#filter.uniforms.coefficients.set(this.#coefficients);
     this.#filter.uniforms.adjust.set([
-      (NextPowerOf2(w) / w) * (w/h), NextPowerOf2(h) / h
+      NextPowerOf2(w) / w,
+      NextPowerOf2(h) / h
     ]);
+    this.#filter.uniforms.scale.set([xMax - xMin, yMax - yMin]);
+    this.#filter.uniforms.offset.set([xMin / (xMin - xMax), yMin / (yMin - yMax)]);
 
     g.beginFill(0);
     g.drawRect(x,y,w,h);

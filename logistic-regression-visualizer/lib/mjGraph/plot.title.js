@@ -20,13 +20,12 @@ export class PlotTitle {
   #pSpacing = 10;
   #bounds = [];
 
-  constructor(pImpl) {
-
+  constructor(pImpl, titleString, subTitleString) {
     this.#pImpl = pImpl;
 
-    this.#title = new PIXI.Text('',
+    this.#title = new PIXI.Text(titleString,
       { fontFamily: 'sans-serif', fontSize: 24, align: 'center', fill: 0, wordWrap: true, wordWrapWidth: 500 });
-    this.#subTitle = new PIXI.Text('',
+    this.#subTitle = new PIXI.Text(subTitleString,
       { fontFamily: 'sans-serif', fontSize: 18, align: 'center', fill: 0, wordWrap: true, wordWrapWidth: 500 });
 
     const c = new PIXI.Container();

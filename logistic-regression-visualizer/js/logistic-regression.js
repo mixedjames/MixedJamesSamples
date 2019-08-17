@@ -17,24 +17,20 @@ export function BuildModel(originalData, meta) {
   let beta = meta.features.map(() => 1);
   beta.push(1);
 
-  const rate = 0.5;
+  const rate = 100;
   let c = 0;
   let dc = 0;
 
-  for (let i = 0; i < 1000; ++ i) {
+  for (let i = 0; i < 10000; ++ i) {
 
     c = Cost(data, beta);
     dc = CostDerivatives(data, beta);
-
-console.log(c, dc[0]);
 
     beta = beta.map((b, i) => {
       return b - rate*dc[i];
     });
 
   }
-
-console.log(beta);
 
   return beta;
 }

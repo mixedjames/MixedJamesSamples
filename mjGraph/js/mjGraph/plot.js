@@ -42,9 +42,14 @@ export class Plot {
         autoStart: true
       }),
 
+      xMin: NumberParam(settings.xMin, 0),
+      xMax: NumberParam(settings.xMax, 1),
+      yMin: NumberParam(settings.yMin, 0),
+      yMax: NumberParam(settings.yMax, 1),
     };
 
-    this.#title = new PlotTitle(pImpl);
+    this.#title = new PlotTitle(pImpl,
+      StringParam(settings.title), StringParam(settings.subtitle));
     this.#vAxis = new PlotAxis(pImpl, { dir: 'vertical' });
     this.#hAxis = new PlotAxis(pImpl, { dir: 'horizontal' });
 
@@ -103,5 +108,35 @@ function CanvasOrId(e) {
   }
   else {
     throw new Error('Argument was null or undefined.');
+  }
+}
+
+/**
+ * Returns:
+ * (a) The string value of potentialNumber if this is non-null and is defined
+ * (b) An empty string otherwise
+ */
+function StringParam(potentialString) {
+  if (typeof potentialString === 'undefined' || potentialString === null) {
+    return '';
+  }
+  else {
+    return ''+potentialString;
+  }
+}
+
+/**
+ * Returns:
+ * (a) The numeric value of potentialNumber if this is non-null and converts
+ *     to a valid non-NaN number.
+ * (b) defaultValue otherwise (which is presumed to be or be covertable to
+ *     a number)
+ */
+function NumberParam(potentialNumber, defaultValue) {
+  if (potentialNumber === null || isNaN(+potentialNumber)) {
+    return +defaultValue;
+  }
+  else {
+    return +potentialNumber;
   }
 }

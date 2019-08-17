@@ -10,6 +10,8 @@
 
 uniform vec3 coefficients;
 uniform vec2 adjust;
+uniform vec2 scale;
+uniform vec2 offset;
 
 varying vec2 vTextureCoord;
 
@@ -19,8 +21,8 @@ const vec4 negativeColor = vec4(0.0, 0.0, 1.0, 1.0);
 void main() {
   float t =
       coefficients.x
-    + coefficients.y * vTextureCoord.x * adjust.x
-    + coefficients.z * (1.0 - vTextureCoord.y * adjust.y);
+    + coefficients.y * scale.x * (vTextureCoord.x*adjust.x - offset.x)
+    + coefficients.z * scale.y * ((1.0 - (vTextureCoord.y * adjust.y)) - offset.y);
 
   float p = 1.0 / (1.0+exp(-t));
 

@@ -8,12 +8,5 @@
  * Copyright 2019 James Heggie
  */
 
-// Core
-export * from './plot.js';
-export * from './plot.axis.js';
-export * from './plot.layer.js';
-export * from './plot.title.js';
-
-// Utilities
-export * from './plot.line-segment-layer.js';
-export * from './plot.scatter-plot-layer.js';
+export * from './linear-regression-closed-form.js';
+export * from './batch-gradient-descent.js';

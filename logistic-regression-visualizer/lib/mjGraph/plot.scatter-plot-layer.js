@@ -8,10 +8,11 @@
  * Copyright 2019 James Heggie
  */
 
-import * as mjg from '../lib/mjGraph/mjGraph.js';
+import {PlotLayer} from './plot.layer.js';
 
-export class ScatterPlotLayer extends mjg.PlotLayer {
+export class ScatterPlotLayer extends PlotLayer {
 
+  #pImpl;
   #series;
 
   constructor(settings) {
@@ -20,8 +21,16 @@ export class ScatterPlotLayer extends mjg.PlotLayer {
     this.#series = settings.series.map(series => ({ name: series.name, x: series.x, y: series.y }));
   }
 
+  attachToPlot(pImpl, x, y, w, h) {
+    this.#pImpl = pImpl;
+    super.attachToPlot(pImpl, x, y, w, h);
+  }
+
   render(g, bounds) {
     const [x,y,w,h] = bounds;
+    const {xMax, xMin, yMax, yMin} = this.#pImpl;
+    const dx = xMax - xMin;
+    const dy = yMax - yMin;
 
     g.lineStyle(1, 0xFFFFFF);
 
@@ -30,11 +39,14 @@ export class ScatterPlotLayer extends mjg.PlotLayer {
 
       for (let i = 0, l = s.x.length; i < l; ++ i) {
 
+        const px = x + (s.x[i] - xMin) * w/dx;
+        const py = y + (dy - s.y[i] + yMin) * h/dy;
+
         if (j % 2) {
-          g.drawCircle(x + s.x[i]*w, y + (1-s.y[i])*h, 3);
+          g.drawCircle(px, py, 3);
         }
         else {
-          g.drawRect(x + s.x[i]*w, y + (1-s.y[i])*h, 4, 4);
+          g.drawRect(px, py, 4, 4);
         }
 
       }
